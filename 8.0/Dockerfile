@@ -1,5 +1,5 @@
-#7.2 130M 左右
-FROM php:7.2-alpine3.12
+#8.0
+FROM php:8.0-alpine3.15
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories \
     && apk --update add --no-cache \ 
@@ -11,7 +11,9 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/re
     # gd
     libpng-dev \
     libjpeg-turbo-dev \
-    && docker-php-ext-install bcmath opcache pcntl pdo_mysql sockets \
+    && docker-php-ext-install bcmath opcache pcntl pdo_mysql \
+    # sockets
+    && CFLAGS="$CFLAGS -D_GNU_SOURCE" docker-php-ext-install sockets \
     # zip
     zip \
     # gd

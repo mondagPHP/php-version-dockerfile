@@ -1,5 +1,5 @@
-#7.2 130M 左右
-FROM php:7.2-alpine3.12
+#7.0 130M 左右
+FROM php:7.0-alpine
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories \
     && apk --update add --no-cache \ 

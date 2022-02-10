@@ -1,16 +1,16 @@
 # 8.1 150M 左右
-FROM php:8.1-cli-alpine3.15 as main
+FROM php:8.1-alpine3.15 as main
 
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories \
     && apk --update add --no-cache \ 
     # Packages
-    # git \
     zip \
     curl \
     # zip
     libzip-dev \
     # gd
     libpng-dev \
+    libjpeg-turbo-dev \
     && docker-php-ext-install bcmath opcache pcntl pdo_mysql \
     # sockets
     && CFLAGS="$CFLAGS -D_GNU_SOURCE" docker-php-ext-install sockets \
@@ -19,9 +19,6 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
     # gd
     gd \
     # redis
-    #&& mkdir -p /usr/src/php/ext/redis \
-	#&& curl -fsSL https://pecl.php.net/get/redis-5.3.6.tgz --ipv4 | tar xvz -C "/usr/src/php/ext/redis" \
-	#&& docker-php-ext-install redis \
     && curl -fsSL 'https://pecl.php.net/get/redis-5.3.6.tgz' -o redis.tar.gz \
     && mkdir -p /tmp/redis \
     && tar -xf redis.tar.gz -C /tmp/redis --strip-components=1 \
