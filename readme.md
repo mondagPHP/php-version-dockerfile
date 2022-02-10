@@ -26,6 +26,9 @@
 
     RUN composer install -vvv --no-dev
 
+    #如果不想在基础镜像装composer ， 可以注释基础镜像中composer相关命令 (7.0 版本暂时每装)
+    # RUN php composer.phar config -g repo.packagist composer https://mirrors.aliyun.com/composer && php composer.phar install -vvv --no-dev 
+
     CMD php bin/start start
 
     EXPOSE 8080
