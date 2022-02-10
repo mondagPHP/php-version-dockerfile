@@ -10,7 +10,6 @@
 - `$PHP_INI_DIR` 是docker 中 php ini 配置目录
 - 切换对应版本目录中 实例构建镜像 `sudo docker build --no-cache -t php-版本号 .`
 - 交互式运行 `sudo docker run --name php版本号 -it php-版本号 /bin/sh`
-- 全局安装了 `composer`
 
 ## app镜像demo
 
