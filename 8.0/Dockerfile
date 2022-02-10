@@ -35,5 +35,11 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/re
     && docker-php-ext-install /tmp/event \
     && rm -r /tmp/event \
     && mv "$PHP_INI_DIR/conf.d/docker-php-ext-event.ini" "$PHP_INI_DIR/conf.d/docker-php-ext-zevent.ini" \
+    ## composer
+    && php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');" \
+    && php composer-setup.php \
+    && php -r "unlink('composer-setup.php');" \
+    && mv composer.phar /usr/local/bin/composer \
+    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer \
 	# Clean up
     && rm -rf /var/cache/apk/*
