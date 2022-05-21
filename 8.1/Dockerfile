@@ -4,16 +4,9 @@ FROM php:8.1-alpine3.15
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories \
-    && apk --update add --no-cache \ 
-    # Packages
-    zip \
-    curl \
-    # gd
-    libpng-dev \
-    libjpeg-turbo-dev \
-    && docker-php-ext-install bcmath opcache pcntl pdo_mysql \
-    # gd
-    gd \
+    && apk --update add --no-cache git zip curl libpng-dev libjpeg-turbo-dev \
+    && docker-php-ext-install bcmath opcache pcntl pdo_mysql gd \
     && install-php-extensions sockets zip redis-5.3.6 event-3.0.6 \
-    # Clean up
+    && wget -nv -O /usr/local/bin/composer https://mirrors.aliyun.com/composer/composer.phar \
+    && chmod +x /usr/local/bin/composer \
     && rm -rf /var/cache/apk/*
